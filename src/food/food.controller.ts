@@ -1,12 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { FoodService } from './food.service';
 
 @Controller('food')
 export class FoodController {
   constructor(private readonly foodService: FoodService) {}
 
+  
+  @Get(':id')
+  getFood(@Param('id') id: number): Object {
+    return {data: this.foodService.getFood(Number(id))[0]}
+  }
+
   @Get()
   getFoodList(): Object {
-    return this.foodService.getFoodList();
+    const list = this.foodService.getFoodList()
+    return list;
   }
-}2
+}

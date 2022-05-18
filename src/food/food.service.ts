@@ -1,75 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Get, Injectable } from '@nestjs/common';
+import { log } from 'console';
+import { foodList } from './foodList';
 
 // 0 -> 방문 예정, 1 -> 방문지
 @Injectable()
 export class FoodService {
+  
+  @Get()
   getFoodList(): Object {
     return {
-      data: [
-
-        {
-          name: 'food1',
-          address: '주소1',
-          category: 1,
-          visitDate: '2022-02-02'
-        },
-        {
-          name: 'food2',
-          address: '주소2',
-          category: 1,
-          visitDate: '2022-02-03'
-        },
-        {
-          name: 'food3',
-          address: '주소3',
-          category: 1,
-          visitDate: '2022-02-04'
-        },
-        {
-          name: 'food1',
-          address: '주소1',
-          category: 1,
-          visitDate: '2022-02-02'
-        },
-        {
-          name: 'food2',
-          address: '주소2',
-          category: 1,
-          visitDate: '2022-02-03'
-        },
-        {
-          name: 'food3',
-          address: '주소3',
-          category: 1,
-          visitDate: '2022-02-04'
-        },
-        {
-          name: 'food1',
-          address: '주소1',
-          category: 1,
-          visitDate: '2022-02-02'
-        },
-        {
-          name: 'food2',
-          address: '주소2',
-          category: 1,
-          visitDate: '2022-02-03'
-        },
-        {
-          name: 'food3',
-          address: '주소3',
-          category: 1,
-          visitDate: '2022-02-04'
-        },
-        {
-          name: 'food3',
-          address: '주소3',
-          category: 1,
-          visitDate: '2022-02-04'
-        },
-      ],
+      data: foodList,
       total: 10
     }
-    
   }
+  
+  @Get()
+  getFood(id): Object {
+    const food = foodList.filter((food) => (
+      food.id === id
+    ))
+
+    return food;
+  }
+  
 }
