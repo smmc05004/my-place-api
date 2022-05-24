@@ -8,13 +8,6 @@ import { foodList } from '../foodList';
 export class FoodService {
   constructor(private prisma: PrismaService) {}
   
-  // @Get()
-  // getFoodList(): Object {
-  //   return {
-  //     data: foodList,
-  //     total: 10
-  //   }
-  // }
   async getAllFoods(): Promise<Food[]> {
     const result = this.prisma.food.findMany() ;
     return result;
