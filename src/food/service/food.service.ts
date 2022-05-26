@@ -9,7 +9,14 @@ export class FoodService {
   constructor(private prisma: PrismaService) {}
   
   async getAllFoods(): Promise<Food[]> {
-    const result = this.prisma.food.findMany() ;
+    const result = this.prisma.food.findMany({
+      where: {
+        authorId: 'oisterlee',
+      },
+      include: {
+        author: true,
+      }
+    });
     return result;
   }
   

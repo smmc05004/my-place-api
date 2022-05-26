@@ -10,11 +10,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id          String      @id            @map("id")
+  name        String                        @map("name")
+  createDate  DateTime    @default(now())   @map("createDate")
+  foods       Food[]
+  @@map("user")
+}
+
 model Food {
   id        Int         @id @default(autoincrement()) @map("id")
-  category  Int         @map("category")
-  name      String      @map("name")
-  visitDate DateTime    @map("visitDate")
+  category  Int                                       @map("category")
+  name      String                                    @map("name")
+  visitDate DateTime                                  @map("visitDate")
+  author    User        @relation(fields:[authorId], references: [id])
+  authorId  String
 
   @@map("food")
 }
