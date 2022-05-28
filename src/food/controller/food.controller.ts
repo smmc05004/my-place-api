@@ -6,7 +6,6 @@ import { FoodService } from '../service/food.service';
 export class FoodController {
   constructor(private readonly foodService: FoodService) {}
 
-  
   @Get()
   async getFoodList(): Promise<Food[]> {
     return  await this.foodService.getFoods();
@@ -16,5 +15,4 @@ export class FoodController {
   async getFoodById(@Param('id') id: number): Promise<Food | null>  {
     return await this.foodService.getFoodById(Number(id));
   }
-
 }
