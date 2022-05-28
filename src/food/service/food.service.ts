@@ -8,11 +8,8 @@ import { foodList } from '../foodList';
 export class FoodService {
   constructor(private prisma: PrismaService) {}
   
-  async getAllFoods(): Promise<Food[]> {
+  async getFoods(): Promise<Food[]> {
     const result = this.prisma.food.findMany({
-      where: {
-        writerId:1
-      },
       include: {
         writer: true
       }
@@ -21,10 +18,12 @@ export class FoodService {
   }
   
   @Get()
-  getFood(id): Object {
-    const food = foodList.filter((food) => (
-      food.id === id
-    ))
+  async getFoodById(id: number): Promise<Food | null> {
+    const food = await this.prisma.food.findUnique({
+      where: {
+        id: id
+      }
+    })
 
     return food;
   }

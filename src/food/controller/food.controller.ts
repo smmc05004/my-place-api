@@ -7,14 +7,14 @@ export class FoodController {
   constructor(private readonly foodService: FoodService) {}
 
   
-  @Get(':id')
-  getFood(@Param('id') id: number): Object {
-    return {data: this.foodService.getFood(Number(id))[0]}
-  }
-
   @Get()
   async getFoodList(): Promise<Food[]> {
-    const list = this.foodService.getAllFoods()
-    return list;
+    return  await this.foodService.getFoods();
   }
+
+  @Get(':id')
+  async getFoodById(@Param('id') id: number): Promise<Food | null>  {
+    return await this.foodService.getFoodById(Number(id));
+  }
+
 }
