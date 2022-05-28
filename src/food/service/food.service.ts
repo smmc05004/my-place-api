@@ -11,10 +11,10 @@ export class FoodService {
   async getAllFoods(): Promise<Food[]> {
     const result = this.prisma.food.findMany({
       where: {
-        authorId: 'oisterlee',
+        writerId:1
       },
       include: {
-        author: true,
+        writer: true
       }
     });
     return result;

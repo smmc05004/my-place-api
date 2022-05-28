@@ -11,9 +11,10 @@ datasource db {
 }
 
 model User {
-  id          String      @id            @map("id")
-  name        String                        @map("name")
-  createDate  DateTime    @default(now())   @map("createDate")
+  id          Int         @id @default(autoincrement()) @map("id")
+  useId       String      @unique                       @map("userId")
+  name        String                                    @map("name")
+  regDate     DateTime    @default(now())               @map("createDate")
   foods       Food[]
   @@map("user")
 }
@@ -23,8 +24,8 @@ model Food {
   category  Int                                       @map("category")
   name      String                                    @map("name")
   visitDate DateTime                                  @map("visitDate")
-  author    User        @relation(fields:[authorId], references: [id])
-  authorId  String
+  writer    User        @relation(fields:[writerId], references: [id])
+  writerId  Int
 
   @@map("food")
 }
