@@ -1,4 +1,4 @@
-import { Get, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Food } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -16,7 +16,6 @@ export class FoodService {
     return result;
   }
   
-  @Get()
   async getFoodById(id: number): Promise<Food | null> {
     const food = await this.prisma.food.findUnique({
       where: {
