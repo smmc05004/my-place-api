@@ -11,24 +11,24 @@ datasource db {
 }
 
 model User {
-  id          Int         @id @default(autoincrement()) @map("id")
-  useId       String      @unique                       @map("userId")
-  name        String                                    @map("name")
-  regDate     DateTime    @default(now())               @map("createDate")
-  foods       Food[]
+  id      Int      @id @default(autoincrement()) @map("id")
+  useId   String   @unique @map("userId")
+  name    String   @map("name")
+  regDate DateTime @default(now()) @map("createDate")
+  foods   Food[]
 
   @@map("user")
 }
 
 model Food {
-  id            Int         @id @default(autoincrement()) @map("id")
-  category      Int                                       @map("category")
-  name          String                                    @map("name")
-  mainAddress   String?     @default("")                  @map("mainAddress")
-  subAddress    String?     @default("")                  @map("subAddress")
-  visitDate     DateTime                                  @map("visitDate")
-  writer        User        @relation(fields:[writerId], references: [id])
-  writerId      Int
+  id          Int      @id @default(autoincrement()) @map("id")
+  category    Int      @map("category")
+  name        String   @map("name")
+  mainAddress String?  @default("") @map("mainAddress")
+  subAddress  String?  @default("") @map("subAddress")
+  visitDate   DateTime @map("visitDate")
+  writer      User     @relation(fields: [writerId], references: [id])
+  writerId    Int      @map("writerId")
 
   @@map("food")
 }

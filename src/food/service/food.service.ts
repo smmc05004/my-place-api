@@ -20,11 +20,15 @@ export class FoodService {
   async getFoodById(id: number): Promise<Food | null> {
     const food = await this.prisma.food.findUnique({
       where: {
-        id: id
+        id 
       }
     })
 
     return food;
+  }
+
+  async addFood(data: Food): Promise<Food> {
+    return await this.prisma.food.create({ data });
   }
 }
 
