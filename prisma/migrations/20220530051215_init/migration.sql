@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `food` ADD COLUMN `mainAddress` VARCHAR(191) NULL DEFAULT '',
+    ADD COLUMN `subAddress` VARCHAR(191) NULL DEFAULT '';
