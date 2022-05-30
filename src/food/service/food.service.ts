@@ -30,6 +30,3 @@ export class FoodService {
     return await this.prisma.food.create({ data });
   }
 }
-
-
-
