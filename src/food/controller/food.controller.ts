@@ -7,8 +7,13 @@ export class FoodController {
   constructor(private readonly foodService: FoodService) {}
 
   @Get()
-  async getFoodList(): Promise<Food[]> {
-    return  await this.foodService.getFoods();
+  async getFoodList(): Promise<{data: Food[], total: number}> {
+    const list = await this.foodService.getFoods();
+    
+    return {
+      data: list,
+      total: 15
+    };
   }
 
   @Get(':id')
