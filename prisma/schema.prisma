@@ -27,7 +27,7 @@ model Food {
   mainAddress String?  @default("") @map("mainAddress")
   subAddress  String?  @default("") @map("subAddress")
   description String?  @default("") @map("description")
-  visitDate   DateTime @map("visitDate")
+  visitDate   DateTime @default(now()) @map("visitDate")
   writer      User     @relation(fields: [writerId], references: [id])
   writerId    Int      @map("writerId")
 
