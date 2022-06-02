@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Food } from '@prisma/client';
+import { FoodCreateDTO } from '../dto/foodCreate.dto';
 import { FoodService } from '../service/food.service';
 
 @Controller('food')
@@ -22,7 +23,7 @@ export class FoodController {
   }
 
   @Post()
-  async addFood(@Body() food: Food): Promise<Food> {
+  async addFood(@Body() food: FoodCreateDTO) {
     return await this.foodService.addFood(food);
   }
 }

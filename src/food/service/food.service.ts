@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Food } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { FoodCreateDTO } from '../dto/foodCreate.dto';
 
 // 0 -> 방문 예정, 1 -> 방문지
 @Injectable()
@@ -26,7 +27,7 @@ export class FoodService {
     return food;
   }
 
-  async addFood(data: Food): Promise<Food> {
+  async addFood(data: FoodCreateDTO): Promise<Food> {
     return await this.prisma.food.create({ data });
   }
 }

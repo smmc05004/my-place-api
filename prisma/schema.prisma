@@ -21,15 +21,15 @@ model User {
 }
 
 model Food {
-  id          Int      @id @default(autoincrement()) @map("id")
-  category    Int      @map("category")
-  name        String   @map("name")
-  mainAddress String?  @default("") @map("mainAddress")
-  subAddress  String?  @default("") @map("subAddress")
-  description String?  @default("") @map("description")
-  visitDate   DateTime @default(now()) @map("visitDate")
-  writer      User     @relation(fields: [writerId], references: [id])
-  writerId    Int      @map("writerId")
+  id          Int       @id @default(autoincrement()) @map("id")
+  category    Int       @map("category")
+  name        String    @map("name")
+  mainAddress String?   @default("") @map("mainAddress")
+  subAddress  String?   @default("") @map("subAddress")
+  description String?   @default("") @map("description")
+  visitDate   DateTime? @map("visitDate")
+  writer      User      @relation(fields: [writerId], references: [id])
+  writerId    Int       @map("writerId")
 
   @@map("food")
 }
