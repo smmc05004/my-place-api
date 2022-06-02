@@ -18,8 +18,10 @@ export class FoodController {
   }
 
   @Get(':id')
-  async getFoodById(@Param('id') id: number): Promise<Food | null>  {
-    return await this.foodService.getFoodById(Number(id));
+  async getFoodById(@Param('id') id: number): Promise<{data: Food | null}>  {
+    return {
+      data: await this.foodService.getFoodById(id)
+    };
   }
 
   @Post()
