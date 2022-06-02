@@ -23,7 +23,9 @@ export class FoodController {
   }
 
   @Post()
-  async addFood(@Body() food: FoodCreateDTO) {
-    return await this.foodService.addFood(food);
+  async addFood(@Body() food: FoodCreateDTO): Promise<{data: Food}> {
+    return {
+      data: await this.foodService.addFood(food)
+    };
   }
 }
