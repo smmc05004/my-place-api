@@ -10,7 +10,7 @@ export class FoodController {
   @Get()
   async getFoodList(@Query('category') category: number, @Query('page') page: number ): Promise<{data: Food[], total: number}> {
     const list = await this.foodService.getFoods({category, page});
-    const count = await this.foodService.getFoodsCountt({category, page});
+    const count = await this.foodService.getFoodsCount({category});
     
     return {
       data: list,

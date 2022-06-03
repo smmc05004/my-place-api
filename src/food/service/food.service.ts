@@ -3,8 +3,10 @@ import { Food } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { FoodCreateDTO } from '../dto/foodCreate.dto';
 
-interface Props {
+interface FoodCountProps {
   category: number
+}
+interface FoodListProps  extends FoodCountProps{
   page: number
 }
 
@@ -13,7 +15,7 @@ interface Props {
 export class FoodService {
   constructor(private prisma: PrismaService) {}
   
-  async getFoods({category, page}: Props): Promise<Food[]> {
+  async getFoods({category, page}: FoodListProps): Promise<Food[]> {
     const rowSize = 10;
 
     const result = this.prisma.food.findMany({
@@ -33,7 +35,8 @@ export class FoodService {
     return result;
   }
 
-  async getFoodsCountt({category, page}: Props): Promise<number> {
+  async getFoodsCount({category}: FoodCountProps): Promise<number> {
+
     const result = await this.prisma.food.count({
       where:{
         category,
