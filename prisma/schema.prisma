@@ -30,6 +30,18 @@ model Food {
   visitDate   DateTime? @map("visitDate")
   writer      User      @relation(fields: [writerId], references: [id])
   writerId    Int       @map("writerId")
+  attach      Attach[] 
 
   @@map("food")
+}
+
+model Attach {
+  id          Int         @id @default(autoincrement()) @map("id")
+  type        String      @map("type")
+  name        String      @map("name")
+  createDate  DateTime?   @map("createDate")
+  food        Food        @relation(fields: [typeId], references: [id])
+  typeId      Int         @map("typeId")
+  
+  @@map("attach")
 }
