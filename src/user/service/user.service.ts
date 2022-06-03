@@ -8,17 +8,14 @@ export class UserService {
 
   async getUsers(): Promise<User[]> {
     const result = this.prisma.user.findMany();
-    console.log('result: ', result)
-    
-    return result
+    return result;
   }
 
   async getUserByUserId(userId: string): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: {
-        useId: userId
-      }
-    })
+        useId: userId,
+      },
+    });
   }
-
 }
