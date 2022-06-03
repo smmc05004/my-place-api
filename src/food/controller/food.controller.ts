@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { Food } from '@prisma/client';
 import { FoodCreateDTO } from '../dto/foodCreate.dto';
 import { FoodService } from '../service/food.service';
@@ -8,12 +8,13 @@ export class FoodController {
   constructor(private readonly foodService: FoodService) {}
 
   @Get()
-  async getFoodList(): Promise<{data: Food[], total: number}> {
-    const list = await this.foodService.getFoods();
+  async getFoodList(@Query('category') category: number, @Query('page') page: number ): Promise<{data: Food[], total: number}> {
+    const list = await this.foodService.getFoods({category, page});
+    const count = await this.foodService.getFoodsCountt({category, page});
     
     return {
       data: list,
-      total: 15
+      total: count
     };
   }
 
