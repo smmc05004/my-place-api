@@ -57,6 +57,16 @@ export class FoodService {
   }
 
   async addFood(data: FoodCreateDTO): Promise<Food> {
-    return await this.prisma.food.create({ data });
+    return await this.prisma.food.create({
+      data: {
+        ...data,
+        attach: {
+          create: {
+            type: 'aaaa',
+            name: 'bbbb',
+          },
+        },
+      },
+    });
   }
 }

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `attach` MODIFY `createDate` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3);

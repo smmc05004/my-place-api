@@ -39,7 +39,7 @@ model Attach {
   id          Int         @id @default(autoincrement()) @map("id")
   type        String      @map("type")
   name        String      @map("name")
-  createDate  DateTime?   @map("createDate")
+  createDate  DateTime?   @default(now()) @map("createDate")
   food        Food        @relation(fields: [typeId], references: [id])
   typeId      Int         @map("typeId")
   
