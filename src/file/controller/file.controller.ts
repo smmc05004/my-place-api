@@ -1,29 +1,20 @@
-import {  Controller, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
-import {  FilesInterceptor } from '@nestjs/platform-express';
+import {  Controller, Post, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import {  FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from '../multerOptions';
-
-const fileFilter = (req, file, callback) => {
-  console.log('file: ', file)
-  console.log('callback: ', callback)
-  console.log('mimetype: ', file.mimetype)
-}
 
 @Controller('file')
 export class FileController {
 
   @Post('upload')
-  @UseInterceptors(FilesInterceptor('files', 10, multerOptions))
-  uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    console.log('files: ', files)
+  // @UseInterceptors(FilesInterceptor('files', 10, multerOptions))
+  // uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
+  @UseInterceptors(FileInterceptor('file', multerOptions))
+  uploadFiles(@UploadedFile() file: Express.Multer.File) {
+    console.log('file: ', file)
 
     return {
-      // file: file.buffer.toString(),
-      file: 'aaaa'
+      filename: file.filename
     };
   }
 
-  // @Post()
-  // async uploadFile() {
-  //   await this.fileService.
-  // }
 }

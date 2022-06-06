@@ -26,9 +26,10 @@ export const multerOptions = {
     // destination: './attach',
 
     filename: (request, file, callback) => {
+      console.log('file: ', file)
       // console.log('file: ', file.filename)
       // '+ '-' + Date.now()' 이 부분이 없으면 위 콘솔이 undefined를 뱉네.. 왜지?..
-      callback(null, file.filename + '-' + Date.now());
+      callback(null, file.originalname + '-' + Date.now());
     }
   })
 }

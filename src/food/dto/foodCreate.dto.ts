@@ -1,4 +1,6 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer'
+import { FileDTO } from 'src/file/dto/fileCreate.dto';
 
 export class FoodCreateDTO {
   @IsString()
@@ -26,4 +28,10 @@ export class FoodCreateDTO {
 
   @IsNumber()
   readonly writerId: number;
+
+  @IsOptional()
+  @Type(() => FileDTO)
+  attach?: FileDTO
 }
+
+
