@@ -65,7 +65,7 @@ export class FoodService {
 				...data,
 			},
 		});
-		
-		return result
+
+		return result;
 	}
 }

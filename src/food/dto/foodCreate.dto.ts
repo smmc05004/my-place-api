@@ -1,37 +1,35 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
-import { Type } from 'class-transformer'
+import { Type } from 'class-transformer';
 import { FileDTO } from 'src/file/dto/fileCreate.dto';
 
 export class FoodCreateDTO {
-  @IsString()
-  readonly name: string;
+	@IsString()
+	readonly name: string;
 
-  @IsNumber()
-  readonly category: number;
+	@IsNumber()
+	readonly category: number;
 
-  @IsOptional()
-  @IsString()
-  readonly mainAddress: string;
+	@IsOptional()
+	@IsString()
+	readonly mainAddress: string;
 
-  @IsOptional()
-  @IsString()
-  readonly subAddress: string;
+	@IsOptional()
+	@IsString()
+	readonly subAddress: string;
 
-  @IsOptional()
-  @IsString()
-  readonly description: string;
+	@IsOptional()
+	@IsString()
+	readonly description: string;
 
-  @IsOptional()
-  // date type으로 넘어오는 값도 string으로 받아야 함
-  @IsString()
-  readonly visitDate: string;
+	@IsOptional()
+	// date type으로 넘어오는 값도 string으로 받아야 함
+	@IsString()
+	readonly visitDate: string;
 
-  @IsNumber()
-  readonly writerId: number;
+	@IsNumber()
+	readonly writerId: number;
 
-  @IsOptional()
-  @Type(() => FileDTO)
-  attach?: FileDTO
+	@IsOptional()
+	@Type(() => FileDTO)
+	attach?: FileDTO;
 }
-
-

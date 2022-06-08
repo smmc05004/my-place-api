@@ -3,6 +3,5 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class FileService {
-  constructor(private prisma: PrismaService) {}
-
+	constructor(private prisma: PrismaService) {}
 }
