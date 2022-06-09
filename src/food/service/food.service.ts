@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Food } from '@prisma/client';
+import { FileDTO } from 'src/file/dto/fileCreate.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { FoodCreateDTO } from '../dto/foodCreate.dto';
 
@@ -8,6 +9,19 @@ interface FoodCountProps {
 }
 interface FoodListProps extends FoodCountProps {
 	page: number;
+}
+
+interface AddFoodProps {
+	attach?: {
+		create: FileDTO;
+	};
+	name: string;
+	category: number;
+	mainAddress: string;
+	subAddress: string;
+	description: string;
+	visitDate: string;
+	writerId: number;
 }
 
 // 0 -> 방문 예정, 1 -> 방문지
@@ -59,7 +73,7 @@ export class FoodService {
 		return food;
 	}
 
-	async addFood(data: FoodCreateDTO): Promise<Food> {
+	async addFood(data: AddFoodProps): Promise<Food> {
 		const result = await this.prisma.food.create({
 			data: {
 				...data,

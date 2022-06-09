@@ -31,7 +31,10 @@ export class FoodController {
 	@Post()
 	async addFood(@Body() food: FoodCreateDTO): Promise<{ data: Food }> {
 		return {
-			data: await this.foodService.addFood(food),
+			data: await this.foodService.addFood({
+				...food,
+				attach: { create: food.attach },
+			}),
 		};
 	}
 }
