@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id      Int      @id @default(autoincrement()) @map("id")
-  useId   String   @unique @map("userId")
+  userId  String   @unique @map("userId")
   name    String   @map("name")
   regDate DateTime @default(now()) @map("createDate")
   foods   Food[]
