@@ -18,13 +18,13 @@ export class AuthService {
 
 	constructor(private usersService: UserService) {}
 
-	async validateUser(username: string): Promise<any> {
+	async validateUser(username: string, pass: string): Promise<any> {
 		const user = await this.usersService.findOne(username);
-		if (user) {
+		if (user && user.password === pass) {
+			const { password, ...result } = user;
 			// result는 password 를 제외한 user의 모든 정보를 포함한다.
-			return user;
+			return result;
 		}
-
 		return null;
 	}
 }
