@@ -15,7 +15,7 @@ export class FileController {
 	// uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
 	@UseInterceptors(FileInterceptor('file', multerOptions))
 	uploadFiles(@UploadedFile() file: Express.Multer.File) {
-		console.log('file: ', file);
+		// console.log('file: ', file);
 
 		return {
 			filename: file.filename,

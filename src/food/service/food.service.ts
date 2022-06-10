@@ -10,20 +10,6 @@ interface FoodCountProps {
 interface FoodListProps extends FoodCountProps {
 	page: number;
 }
-
-interface AddFoodProps {
-	attach?: {
-		create: FileDTO;
-	};
-	name: string;
-	category: number;
-	mainAddress: string;
-	subAddress: string;
-	description: string;
-	visitDate: string;
-	writerId: number;
-}
-
 // 0 -> 방문 예정, 1 -> 방문지
 @Injectable()
 export class FoodService {
@@ -73,7 +59,7 @@ export class FoodService {
 		return food;
 	}
 
-	async addFood(data: AddFoodProps): Promise<Food> {
+	async addFood(data): Promise<Food> {
 		const result = await this.prisma.food.create({
 			data: {
 				...data,
