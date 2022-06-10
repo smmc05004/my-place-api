@@ -27,9 +27,9 @@ export class FoodCreateDTO {
 	readonly visitDate: string;
 
 	@IsNumber()
-	readonly writerId: number;
+	readonly writer: number;
 
 	@IsOptional()
 	@Type(() => FileDTO)
-	attach?: FileDTO;
+	readonly attach?: FileDTO;
 }

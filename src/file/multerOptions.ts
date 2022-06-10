@@ -4,7 +4,7 @@ import { diskStorage } from 'multer';
 export const multerOptions = {
 	fileFilter: (request, file, callback) => {
 		if (file.mimetype.match(/\/(jpg|jpeg|png|svg|webp)$/)) {
-			// 이미지 형식은 jpg, jpeg, png만 허용합니다.
+			// 이미지 형식은 jpg, jpeg, png, svg, webp만 허용.
 			callback(null, true);
 		} else {
 			callback(new Error('지원하지 않는 이미지 형식입니다.'), false);
@@ -16,7 +16,7 @@ export const multerOptions = {
 			const uploadPath = 'upload';
 
 			if (!existsSync(uploadPath)) {
-				// public 폴더가 존재하지 않을시, 생성합니다.
+				// public 폴더가 존재하지 않을시, 생성.
 				mkdirSync(uploadPath);
 			}
 
@@ -25,7 +25,6 @@ export const multerOptions = {
 		// destination: './attach',
 
 		filename: (request, file, callback) => {
-			console.log('file: ', file);
 			// console.log('file: ', file.filename)
 			// '+ '-' + Date.now()' 이 부분이 없으면 위 콘솔이 undefined를 뱉네.. 왜지?..
 			callback(null, file.originalname + '-' + Date.now());

@@ -33,6 +33,11 @@ export class FoodController {
 		return {
 			data: await this.foodService.addFood({
 				...food,
+				writer: {
+					connect: {
+						id: food.writer,
+					},
+				},
 				attach: { create: food.attach },
 			}),
 		};
