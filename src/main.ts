@@ -1,10 +1,12 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 
+	app.use(cookieParser());
 	app.useGlobalPipes(
 		new ValidationPipe({
 			// 엔티티 데코레이터에 없는 프로퍼티 값은 거름

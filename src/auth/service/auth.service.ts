@@ -9,8 +9,8 @@ export class AuthService {
 		private jwtService: JwtService,
 	) {}
 
-	async validateUser(username: string, pass: string): Promise<any> {
-		const user = await this.usersService.getUserByUserId(username);
+	async validateUser(userId: string, pass: string): Promise<any> {
+		const user = await this.usersService.getUserByUserId(userId);
 		if (user && user.password === pass) {
 			const { password, ...result } = user;
 			// result는 password 를 제외한 user의 모든 정보를 포함한다.
@@ -21,8 +21,6 @@ export class AuthService {
 
 	async login(user: any) {
 		const payload = { username: user.username, sub: user.userId };
-		return {
-			access_token: this.jwtService.sign(payload),
-		};
+		return this.jwtService.sign(payload);
 	}
 }
