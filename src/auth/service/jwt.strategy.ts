@@ -9,9 +9,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 		super({
 			jwtFromRequest: ExtractJwt.fromExtractors([
 				(request) => {
-					console.log('req: ', request);
 					const cookie = request?.cookies['jwt'];
-					console.log('cookiesss: ', cookie);
 					return cookie;
 				},
 			]),

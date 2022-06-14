@@ -15,7 +15,6 @@ import { LocalStrategy } from './service/local.strategy';
 		UserModule,
 		PassportModule,
 		JwtModule.register({
-			// secret: jwtContants.secret,
 			secret: 'SECRETE',
 			signOptions: {
 				expiresIn: '300s',
@@ -23,7 +22,6 @@ import { LocalStrategy } from './service/local.strategy';
 		}),
 	],
 	controllers: [AuthController],
-	// providers: [AuthService, LocalStrategy, JwtStrategy],
-	providers: [AuthService, LocalStrategy],
+	providers: [AuthService, LocalStrategy, JwtStrategy],
 })
 export class AuthModule {}

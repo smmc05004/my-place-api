@@ -14,8 +14,6 @@ export class FoodController {
 		@Query('category') category: number,
 		@Query('page') page: number,
 	): Promise<{ data: Food[]; total: number }> {
-		console.log('cookie: ', req);
-
 		const list = await this.foodService.getFoods({ category, page });
 		const count = await this.foodService.getFoodsCount({ category });
 
