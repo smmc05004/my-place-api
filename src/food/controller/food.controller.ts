@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
 import { Food } from '@prisma/client';
+import { Request } from 'express';
 import { FoodCreateDTO } from '../dto/foodCreate.dto';
 import { FoodService } from '../service/food.service';
 
@@ -9,9 +10,12 @@ export class FoodController {
 
 	@Get()
 	async getFoodList(
+		@Req() req: Request,
 		@Query('category') category: number,
 		@Query('page') page: number,
 	): Promise<{ data: Food[]; total: number }> {
+		console.log('cookie: ', req);
+
 		const list = await this.foodService.getFoods({ category, page });
 		const count = await this.foodService.getFoodsCount({ category });
 
