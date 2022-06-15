@@ -11,7 +11,6 @@ export class AuthController {
 	@UseGuards(LocalAuthGard)
 	@Post('/login')
 	async login(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-		// console.log('user: ', );
 		const user = req.user;
 		const { access_token } = await this.authService.login(user);
 
@@ -19,12 +18,9 @@ export class AuthController {
 
 		res.cookie('jwt', access_token, {
 			httpOnly: true,
-			// domain: 'http://localhost:3000/auth/login',
-			// maxAge: 5 * 60 * 1000,
+			maxAge: 5 * 60 * 1000,
 		});
-		console.log('res: ', res);
 
-		// access_token
 		return { data: user };
 	}
 
