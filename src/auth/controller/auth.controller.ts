@@ -11,17 +11,21 @@ export class AuthController {
 	@UseGuards(LocalAuthGard)
 	@Post('/login')
 	async login(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-		const { access_token } = await this.authService.login(req.user);
+		// console.log('user: ', );
+		const user = req.user;
+		const { access_token } = await this.authService.login(user);
 
 		res.setHeader('Authorization', `Bearer ${access_token}; path=/;`);
 
 		res.cookie('jwt', access_token, {
 			httpOnly: true,
-			domain: '127.0.0.1',
-			maxAge: 5 * 60 * 1000,
+			// domain: 'http://localhost:3000/auth/login',
+			// maxAge: 5 * 60 * 1000,
 		});
+		console.log('res: ', res);
 
-		return access_token;
+		// access_token
+		return { data: user };
 	}
 
 	@UseGuards(JwtAuthGard)
