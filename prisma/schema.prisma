@@ -11,12 +11,14 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement()) @map("id")
-  userId    String    @unique @map("userId")
-  password  String?   @map("password")
-  name      String    @map("name")
-  regDate   DateTime  @default(now()) @map("createDate")
-  foods     Food[]
+  id                Int       @id @default(autoincrement()) @map("id")
+  userId            String    @unique @map("userId")
+  password          String?   @map("password")
+  name              String    @map("name")
+  regDate           DateTime  @default(now()) @map("createDate")
+  foods             Food[]
+  refreshToken      String?   @unique @map("refreshToken")
+  refreshTokenExp   String?   @map("refreshTokenExp")
 
   @@map("user")
 }

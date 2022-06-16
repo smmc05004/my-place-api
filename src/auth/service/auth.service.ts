@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/service/user.service';
-import { jwtContants } from '../constant/constant';
+import * as moment from 'moment';
 
 @Injectable()
 export class AuthService {
@@ -20,20 +20,53 @@ export class AuthService {
 		return null;
 	}
 
-	async login(user: any) {
-		const payload = { username: user.name, sub: user.userId };
+	async getAccessToken(user: any) {
+		const payload = { name: user.name, userId: user.userId };
 		const accessToken = await this.jwtService.signAsync(payload);
-
-		return {
-			access_token: accessToken,
-		};
+		return accessToken;
 	}
 
-	// async verify(token: string) {
-	// 	const verifyResult = this.jwtService.verify(token, {
-	// 		secret: jwtContants.secret,
-	// 	});
-	// 	console.log('verifyResult: ', verifyResult);
-	// 	return verifyResult;
-	// }
+	async verifyToken(cookie: string) {
+		const data = await this.jwtService.verifyAsync(cookie, {
+			secret: 'SECRETE',
+		});
+
+		return data;
+	}
+
+	async getRefreshToken(user: any) {
+		const userId = user.userId;
+		const payload = { name: user.name, userId: user.userId };
+
+		const refreshToken = await this.getAccessToken(payload);
+		const refreshTokenExp = moment().format('YYYY/MM/DD');
+
+		let userDataToUpdate = {
+			refreshToken,
+			refreshTokenExp,
+		};
+
+		const updateResult = await this.usersService.updateUser(
+			userId,
+			userDataToUpdate,
+		);
+
+		if (!updateResult) {
+			return null;
+		}
+
+		return userDataToUpdate.refreshToken;
+	}
+
+	async validateRefreshToken(email, refreshToken) {
+		const currentDate = moment().format('YYYY/MM/DD');
+
+		const user = await this.usersService.getUserByRefreshToken(
+			email,
+			refreshToken,
+			currentDate,
+		);
+
+		return user;
+	}
 }

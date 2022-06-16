@@ -1,24 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
+import { Request } from 'express';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { jwtContants } from '../constant/constant';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 	constructor() {
 		super({
+			ignoreExpiration: false,
+			secretOrKey: 'SECRETE',
 			jwtFromRequest: ExtractJwt.fromExtractors([
-				(request) => {
-					const cookie = request?.cookies['jwt'];
+				(request: Request) => {
+					const cookie = request?.cookies['jwt_access_token'];
 					return cookie;
 				},
 			]),
-			ignoreExpiration: false,
-			secretOrKey: jwtContants.secret,
 		});
 	}
 
 	async validate(payload: any) {
-		return { userId: payload.sub, username: payload.username };
+		// payload에 같이 들어있는 iat, exp 정보는 제외하고 반환
+		return { userId: payload.userId, name: payload.name };
 	}
 }
