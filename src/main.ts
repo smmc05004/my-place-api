@@ -4,9 +4,7 @@ import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-	const app = await NestFactory.create(AppModule, {
-		logger: ['error'],
-	});
+	const app = await NestFactory.create(AppModule);
 
 	app.use(cookieParser());
 	app.useGlobalPipes(
