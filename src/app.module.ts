@@ -4,9 +4,17 @@ import { AppService } from './app.service';
 import { FoodModule } from './food/food.module';
 import { UserModule } from './user/user.module';
 import { FileModule } from './file/file.module';
-
+import { ConfigModule } from '@nestjs/config';
 @Module({
-	imports: [FoodModule, UserModule, FileModule],
+	imports: [
+		ConfigModule.forRoot({
+			isGlobal: true,
+			envFilePath: '.env',
+		}),
+		FoodModule,
+		UserModule,
+		FileModule,
+	],
 	controllers: [AppController],
 	providers: [AppService],
 })
