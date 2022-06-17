@@ -25,7 +25,7 @@ export class AuthController {
 
 			res.cookie('jwt_access_token', access_token, {
 				httpOnly: true,
-				maxAge: 1000 * 3,
+				maxAge: 1000 * 60,
 			});
 
 			res.cookie('jwt_refresh_token', refreshToken, {

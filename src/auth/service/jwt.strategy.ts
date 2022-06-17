@@ -19,6 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 	}
 
 	async validate(payload: any) {
+		console.log('payload: ', payload);
 		// payload에 같이 들어있는 iat, exp 정보는 제외하고 반환
 		return { userId: payload.userId, name: payload.name };
 	}

@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+	MiddlewareConsumer,
+	Module,
+	NestModule,
+	RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { FoodModule } from './food/food.module';
@@ -6,6 +11,8 @@ import { UserModule } from './user/user.module';
 import { FileModule } from './file/file.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { JwtMiddleware } from './middleware/jwtMiddleware';
+import { JwtService } from '@nestjs/jwt';
 @Module({
 	imports: [
 		ConfigModule.forRoot({
@@ -18,6 +25,23 @@ import { ConfigModule } from '@nestjs/config';
 		AuthModule,
 	],
 	controllers: [AppController],
-	providers: [AppService],
+	providers: [AppService, JwtService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+	configure(consumer: MiddlewareConsumer) {
+		consumer.apply(JwtMiddleware).forRoutes(
+			{
+				path: '/food',
+				method: RequestMethod.ALL,
+			},
+			// {
+			// 	path: '/food',
+			// 	method: RequestMethod.POST,
+			// },
+			// {
+			// 	path: '/food',
+			// 	method: RequestMethod.GET,
+			// },
+		);
+	}
+}
