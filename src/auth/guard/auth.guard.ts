@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
 		console.log('auth guard: ', user);
 
 		if (!user) {
-			throw new HttpException('There is no token', 500);
+			throw new HttpException('There is no token', 401);
 			// throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
 		}
 		return true;

@@ -32,15 +32,18 @@ export class JwtMiddleware implements NestMiddleware {
 	async use(req: Request, res: Response, next: NextFunction) {
 		console.log('middleware 실행');
 		const headers = req.headers;
+		console.log('headers: ', headers)
 
 		if ('jwt_access_token' in headers) {
 			// console.log('jwt_access_token 체크');
 			const accessToken = headers['jwt_access_token'].toString();
-			return await this.setUserAtHead(accessToken, req);
+			await this.setUserAtHead(accessToken, req);
+
 		} else if ('jwt_refresh_token' in headers) {
 			// console.log('jwt_refresh_token 체크');
 			const refreshToken = headers['jwt_refresh_token'].toString();
-			return await this.setUserAtHead(refreshToken, req);
+			await this.setUserAtHead(refreshToken, req);
+
 		}
 
 		next();
