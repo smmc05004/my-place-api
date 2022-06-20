@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { Food } from '@prisma/client';
 import { Request } from 'express';
-import { AuthGuard } from 'src/auth/guard/auth.guard';
 import { JwtAuthGard } from 'src/auth/service/jwt-auth.guard';
 import { FoodCreateDTO } from '../dto/foodCreate.dto';
 import { FoodService } from '../service/food.service';
@@ -19,15 +18,13 @@ import { FoodService } from '../service/food.service';
 export class FoodController {
 	constructor(private readonly foodService: FoodService) {}
 
-	// @UseGuards(JwtAuthGard)
-	@UseGuards(AuthGuard)
 	@Get()
+	@UseGuards(JwtAuthGard)
 	async getFoodList(
 		@Req() req: Request,
 		@Query('category') category: number,
 		@Query('page') page: number,
 	): Promise<{ data: Food[]; total: number }> {
-		console.log('컨트롤러 실행');
 		const list = await this.foodService.getFoods({ category, page });
 		const count = await this.foodService.getFoodsCount({ category });
 
